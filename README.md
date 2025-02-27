@@ -1,4 +1,7 @@
-﻿# OpenApi
+﻿# Архитектура системы
+![Архитектура системы](Arch.png)
+
+# OpenApi
 Вызывать из папки DeliveryApp.Api/Adapters/Http/Contract
 ```
 cd DeliveryApp.Api/Adapters/Http/Contract/
