@@ -14,7 +14,7 @@
         <PackageReference Include="Confluent.Kafka" Version="2.8.0" />
         <PackageReference Include="Dapper" Version="2.1.66" />
         <PackageReference Include="Google.Protobuf" Version="3.29.3" />
-        <PackageReference Include="Grpc.Tools" Version="2.69.0">
+        <PackageReference Include="Grpc.Tools" Version="2.70.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
@@ -35,10 +35,10 @@
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.3" />
         <PackageReference Include="Quartz" Version="3.13.1" />
         <PackageReference Include="Quartz.Extensions.Hosting" Version="3.13.1" />
-        <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="7.2.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="7.2.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="7.2.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="7.2.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="7.3.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="7.3.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="7.3.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="7.3.0" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.2" />
     </ItemGroup>
     <ItemGroup>
