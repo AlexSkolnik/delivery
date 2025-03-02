@@ -2,6 +2,10 @@
 ![Архитектура системы](Arch.png)
 ## Архитектура Delivery Service
 ![Архитектура Delivery Service](arch2.png)
+## Use Cases микросервиса Delivery
+![ Use Cases микросервиса Delivery](useCases.png)
+## Domain Model микросервиса Delivery
+![ Use Cases микросервиса Delivery](domainModel.png)
 
 # OpenApi
 Вызывать из папки DeliveryApp.Api/Adapters/Http/Contract
