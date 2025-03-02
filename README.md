@@ -1,5 +1,7 @@
-﻿# Архитектура системы
+﻿## Архитектура системы
 ![Архитектура системы](Arch.png)
+## Архитектура Delivery Service
+![Архитектура Delivery Service](arch2.png)
 
 # OpenApi
 Вызывать из папки DeliveryApp.Api/Adapters/Http/Contract
