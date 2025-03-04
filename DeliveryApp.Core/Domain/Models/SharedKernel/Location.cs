@@ -6,6 +6,9 @@ namespace DeliveryApp.Core.Domain.Models.SharedKernel;
 
 public class Location : ValueObject
 {
+    public static Location MinLocation => new(1, 1);
+    public static Location MaxLocation => new(10, 10);
+
     /// <summary>
     /// Ctr
     /// </summary>
@@ -30,18 +33,15 @@ public class Location : ValueObject
 
     public static Result<Location, Error> Create(int x, int y)
     {
-        if (x is < 1 or > 10) return GeneralErrors.ValueIsInvalid(nameof(x));
-        if (y is < 1 or > 10) return GeneralErrors.ValueIsInvalid(nameof(y));
+        if (x < MinLocation.X || x > MaxLocation.X) return GeneralErrors.ValueIsInvalid(nameof(x));
+        if (y < MinLocation.Y || y > MaxLocation.Y) return GeneralErrors.ValueIsInvalid(nameof(y));
 
         return new Location(x, y);
     }
 
     public int GetDistanceToLocation(Location start)
     {
-        if (start == this)
-            return 0;
-
-        return Convert.ToInt32(Math.Abs(start.X - X) + Math.Abs(start.Y - Y));
+        return start == this ? 0 : Convert.ToInt32(Math.Abs(start.X - X) + Math.Abs(start.Y - Y));
     }
 
     public static Location CreateRandomLocation()

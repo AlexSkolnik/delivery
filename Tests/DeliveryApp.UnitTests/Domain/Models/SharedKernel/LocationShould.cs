@@ -32,11 +32,11 @@ public class LocationShould
         //Arrange
 
         //Act
-        var weight = Location.Create(x, y);
+        var location = Location.Create(x, y);
 
         //Assert
-        weight.IsSuccess.Should().BeFalse();
-        weight.Error.Should().NotBeNull();
+        location.IsSuccess.Should().BeFalse();
+        location.Error.Should().NotBeNull();
     }
 
     [Fact]
@@ -80,4 +80,19 @@ public class LocationShould
         //Assert
         distance.Should().Be(18);
     }
+    
+    [Fact]
+    public void CanCreateRandomLocation()
+    {
+        //Arrange
+
+        //Act
+        var location = Location.CreateRandomLocation();
+
+        //Assert
+        location.Should().NotBeNull();
+        location.X.Should().BeGreaterThanOrEqualTo(1).And.BeLessThanOrEqualTo(10);
+        location.Y.Should().BeGreaterThanOrEqualTo(1).And.BeLessThanOrEqualTo(10);
+    }
+
 }
