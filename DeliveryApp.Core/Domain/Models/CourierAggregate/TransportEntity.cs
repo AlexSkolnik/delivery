@@ -4,18 +4,18 @@ using Primitives;
 
 namespace DeliveryApp.Core.Domain.Models.CourierAggregate;
 
-public class TransportItem : Entity<int>
+public class TransportEntity : Entity<int>
 {
-    public static readonly TransportItem Pedestrian = new(1, nameof(Pedestrian).ToLowerInvariant(), 1);
-    public static readonly TransportItem Bicycle = new(2, nameof(Bicycle).ToLowerInvariant(), 2);
-    public static readonly TransportItem Car = new(3, nameof(Car).ToLowerInvariant(), 3);
+    public static readonly TransportEntity Pedestrian = new(1, nameof(Pedestrian).ToLowerInvariant(), 1);
+    public static readonly TransportEntity Bicycle = new(2, nameof(Bicycle).ToLowerInvariant(), 2);
+    public static readonly TransportEntity Car = new(3, nameof(Car).ToLowerInvariant(), 3);
 
     [ExcludeFromCodeCoverage]
-    private TransportItem()
+    private TransportEntity()
     {
     }
 
-    private TransportItem(int id, string name, int speed) : this()
+    private TransportEntity(int id, string name, int speed) : this()
     {
         Id = id;
         Name = name;
@@ -28,7 +28,7 @@ public class TransportItem : Entity<int>
     /// <summary>
     /// Список всех значений списка
     /// </summary>
-    public static IEnumerable<TransportItem> GetItems()
+    public static IEnumerable<TransportEntity> GetItems()
     {
         yield return Pedestrian;
         yield return Bicycle;
@@ -38,7 +38,7 @@ public class TransportItem : Entity<int>
     /// <summary>
     /// Получить транспорт по названию
     /// </summary>
-    public static Result<TransportItem, Error> GetByName(string name)
+    public static Result<TransportEntity, Error> GetByName(string name)
     {
         var items = GetItems()
             .SingleOrDefault(s => string.Equals(s.Name, name, StringComparison.CurrentCultureIgnoreCase));
@@ -54,7 +54,7 @@ public class TransportItem : Entity<int>
     /// <summary>
     /// Получить транспорт по идентификатору
     /// </summary>
-    public static Result<TransportItem, Error> GetById(int id)
+    public static Result<TransportEntity, Error> GetById(int id)
     {
         var state = GetItems().SingleOrDefault(s => s.Id == id);
         
@@ -74,8 +74,8 @@ public class TransportItem : Entity<int>
     {
         public static Error StatusIsWrong()
         {
-            return new Error($"{nameof(TransportItem).ToLowerInvariant()}_status_is_wrong",
-                $"Не верное значение. Допустимые значения: {nameof(TransportItem).ToLowerInvariant()}: {string.Join(",", GetItems().Select(s => s.Name))}");
+            return new Error($"{nameof(TransportEntity).ToLowerInvariant()}_status_is_wrong",
+                $"Не верное значение. Допустимые значения: {nameof(TransportEntity).ToLowerInvariant()}: {string.Join(",", GetItems().Select(s => s.Name))}");
         }
     }
 }

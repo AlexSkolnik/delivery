@@ -6,40 +6,40 @@ using Xunit;
 
 namespace DeliveryApp.UnitTests.Domain.Models.CourierAggregate;
 
-public sealed class TransportItemShould : Entity<int>
+public class TransportEntityShould
 {
     public static IEnumerable<object[]> GetTransports()
     {
-        yield return [TransportItem.Pedestrian, 1, "pedestrian", 1];
-        yield return [TransportItem.Bicycle, 2, "bicycle", 2];
-        yield return [TransportItem.Car, 3, "car", 3];
+        yield return [TransportEntity.Pedestrian, 1, "pedestrian", 1];
+        yield return [TransportEntity.Bicycle, 2, "bicycle", 2];
+        yield return [TransportEntity.Car, 3, "car", 3];
     }
 
     [Theory]
     [MemberData(nameof(GetTransports))]
-    public void ReturnCorrectIdAndName(TransportItem transportItem, int id, string name, int speed)
+    public void ReturnCorrectIdAndName(TransportEntity transportEntity, int id, string name, int speed)
     {
         //Arrange
 
         //Act
 
         //Assert
-        transportItem.Id.Should().Be(id);
-        transportItem.Name.Should().Be(name);
-        transportItem.Speed.Should().Be(speed);
+        transportEntity.Id.Should().Be(id);
+        transportEntity.Name.Should().Be(name);
+        transportEntity.Speed.Should().Be(speed);
     }
 
     [Theory]
     [MemberData(nameof(GetTransports))]
-    public void CanBeFoundById(TransportItem transportItem, int id, string name, int speed)
+    public void CanBeFoundById(TransportEntity transportEntity, int id, string name, int speed)
     {
         //Arrange
 
         //Act
-        var result = TransportItem.GetById(id).Value;
+        var result = TransportEntity.GetById(id).Value;
 
         //Assert
-        result.Should().Be(transportItem);
+        result.Should().Be(transportEntity);
         result.Id.Should().Be(id);
         result.Name.Should().Be(name);
         result.Speed.Should().Be(speed);
@@ -47,15 +47,15 @@ public sealed class TransportItemShould : Entity<int>
 
     [Theory]
     [MemberData(nameof(GetTransports))]
-    public void CanBeFoundByName(TransportItem transportItem, int id, string name, int speed)
+    public void CanBeFoundByName(TransportEntity transportEntity, int id, string name, int speed)
     {
         //Arrange
 
         //Act
-        var result = TransportItem.GetByName(name).Value;
+        var result = TransportEntity.GetByName(name).Value;
 
         //Assert
-        result.Should().Be(transportItem);
+        result.Should().Be(transportEntity);
         result.Id.Should().Be(id);
         result.Name.Should().Be(name);
         result.Speed.Should().Be(speed);
@@ -68,7 +68,7 @@ public sealed class TransportItemShould : Entity<int>
         var id = -1;
 
         //Act
-        var result = TransportItem.GetById(id);
+        var result = TransportEntity.GetById(id);
 
         //Assert
         result.IsSuccess.Should().BeFalse();
@@ -82,7 +82,7 @@ public sealed class TransportItemShould : Entity<int>
         var name = "not-existed-TransportItem";
 
         //Act
-        var result = TransportItem.GetByName(name);
+        var result = TransportEntity.GetByName(name);
 
         //Assert
         result.IsSuccess.Should().BeFalse();
@@ -95,7 +95,7 @@ public sealed class TransportItemShould : Entity<int>
         //Arrange
 
         //Act
-        var allStatuses = TransportItem.GetItems();
+        var allStatuses = TransportEntity.GetItems();
 
         //Assert
         allStatuses.Should().NotBeEmpty();
@@ -107,7 +107,7 @@ public sealed class TransportItemShould : Entity<int>
         //Arrange
 
         //Act
-        var isDerivedEntity = typeof(TransportItem).IsSubclassOf(typeof(Entity<int>));
+        var isDerivedEntity = typeof(TransportEntity).IsSubclassOf(typeof(Entity<int>));
 
         //Assert
         isDerivedEntity.Should().BeTrue();
@@ -117,8 +117,8 @@ public sealed class TransportItemShould : Entity<int>
     public void BeEqualWhenIdIsEqual()
     {
         //Arrange
-        var pedestrian1 = TransportItem.Pedestrian;
-        var pedestrian2 = TransportItem.Pedestrian;
+        var pedestrian1 = TransportEntity.Pedestrian;
+        var pedestrian2 = TransportEntity.Pedestrian;
         pedestrian1.Id.Should().Be(pedestrian2.Id);
 
         //Act
@@ -132,8 +132,8 @@ public sealed class TransportItemShould : Entity<int>
     public void NotBeEqualWhenIdIsNotEqual()
     {
         //Arrange
-        var pedestrian = TransportItem.Pedestrian;
-        var car = TransportItem.Car;
+        var pedestrian = TransportEntity.Pedestrian;
+        var car = TransportEntity.Car;
         pedestrian.Id.Should().NotBe(car.Id);
 
         //Act
