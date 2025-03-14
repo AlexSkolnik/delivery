@@ -38,11 +38,20 @@ public class Location : ValueObject
 
         return new Location(x, y);
     }
-
-    public int GetDistanceToLocation(Location start)
+    
+    public Result<int, Error> GetDistanceToLocation(Location targetLocation)
     {
-        return start == this ? 0 : Convert.ToInt32(Math.Abs(start.X - X) + Math.Abs(start.Y - Y));
+        if (targetLocation == null) return GeneralErrors.ValueIsRequired(nameof(targetLocation));
+        
+        // Считаем разницу
+        var diffX = Math.Abs(X - targetLocation.X);
+        var diffY = Math.Abs(Y - targetLocation.Y);
+
+        // Считаем дистанцию
+        var distance = diffX + diffY;
+        return distance;
     }
+
 
     public static Location CreateRandomLocation()
     {

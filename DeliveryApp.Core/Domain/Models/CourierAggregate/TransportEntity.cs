@@ -15,9 +15,8 @@ public class TransportEntity : Entity<int>
     {
     }
 
-    private TransportEntity(int id, string name, int speed) : this()
+    private TransportEntity(int id, string name, int speed) : base(id)
     {
-        Id = id;
         Name = name;
         Speed = speed;
     }
