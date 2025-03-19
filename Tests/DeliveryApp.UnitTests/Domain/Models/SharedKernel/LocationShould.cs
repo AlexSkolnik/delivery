@@ -78,7 +78,8 @@ public class LocationShould
         var distance = first.GetDistanceToLocation(second);
 
         //Assert
-        distance.Should().Be(18);
+        distance.IsSuccess.Should().BeTrue();
+        distance.Value.Should().Be(18);
     }
     
     [Fact]
