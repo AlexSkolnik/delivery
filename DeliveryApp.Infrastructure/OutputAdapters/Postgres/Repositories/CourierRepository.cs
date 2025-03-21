@@ -1,30 +1,39 @@
 ﻿using CSharpFunctionalExtensions;
 using DeliveryApp.Core.Domain.Models.CourierAggregate;
 using DeliveryApp.Core.Ports;
+using Microsoft.EntityFrameworkCore;
 
 namespace DeliveryApp.Infrastructure.OutputAdapters.Postgres.Repositories;
 
-public class CourierRepository(ApplicationDbContext context) : ICourierRepository
+public class CourierRepository(ApplicationDbContext dbContext) : ICourierRepository
 {
-    private readonly ApplicationDbContext _context = context;
-
-    public Task AddAsync(Courier courier)
+    public async Task AddAsync(Courier courier)
     {
-        throw new NotImplementedException();
+        await dbContext.Couriers.AddAsync(courier);
     }
 
     public void Update(Courier courier)
     {
-        throw new NotImplementedException();
+        dbContext.Couriers.Update(courier);
     }
 
-    public Task<Maybe<Courier>> GetAsync(Guid courierId)
+    public async Task<Maybe<Courier>> GetAsync(Guid courierId)
     {
-        throw new NotImplementedException();
+        var courier =
+            await dbContext.Couriers
+                .Include(x => x.CurrentTransport)
+                .FirstOrDefaultAsync(o => o.Id == courierId);
+        
+        return courier;
     }
 
     public IEnumerable<Courier> GetAllFree()
     {
-        throw new NotImplementedException();
+        var couriers = 
+            dbContext.Couriers
+            .Include(x => x.CurrentTransport)
+            .Where(o => o.Status.Name == CourierStatus.Free.Name);
+        
+        return couriers;
     }
 }

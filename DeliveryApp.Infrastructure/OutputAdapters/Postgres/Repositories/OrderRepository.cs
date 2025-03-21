@@ -1,35 +1,45 @@
 ﻿using CSharpFunctionalExtensions;
 using DeliveryApp.Core.Domain.Models.OrderAggregate;
 using DeliveryApp.Core.Ports;
+using Microsoft.EntityFrameworkCore;
 
 namespace DeliveryApp.Infrastructure.OutputAdapters.Postgres.Repositories;
 
-public class OrderRepository(ApplicationDbContext context) : IOrderRepository
+public class OrderRepository(ApplicationDbContext dbContext) : IOrderRepository
 {
-    private readonly ApplicationDbContext _context = context;
-
-    public Task AddAsync(Order order)
+    public async Task AddAsync(Order order)
     {
-        throw new NotImplementedException();
+        await dbContext.Orders.AddAsync(order);
     }
 
     public void Update(Order order)
     {
-        throw new NotImplementedException();
+        dbContext.Orders.Update(order);
     }
 
-    public Task<Maybe<Order>> GetAsync(Guid orderId)
+    public async Task<Maybe<Order>> GetAsync(Guid orderId)
     {
-        throw new NotImplementedException();
+        var order = await dbContext.Orders
+            .SingleOrDefaultAsync(o => o.Id == orderId);
+
+        return order;
     }
 
-    public Task<Maybe<Order>> GetFirstInCreatedStatus()
+    public async Task<Maybe<Order>> GetFirstInCreatedStatus()
     {
-        throw new NotImplementedException();
+        var order =
+            await dbContext.Orders
+                .FirstOrDefaultAsync(o => o.Status.Name == OrderStatus.Created.Name);
+
+        return order;
     }
 
     public IEnumerable<Order> GetAllAssigned()
     {
-        throw new NotImplementedException();
+        var orders =
+            dbContext.Orders
+                .Where(o => o.Status.Name == OrderStatus.Assigned.Name);
+        
+        return orders;
     }
 }
