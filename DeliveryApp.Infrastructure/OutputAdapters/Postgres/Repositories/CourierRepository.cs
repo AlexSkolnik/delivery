@@ -23,17 +23,18 @@ public class CourierRepository(ApplicationDbContext dbContext) : ICourierReposit
             await dbContext.Couriers
                 .Include(x => x.CurrentTransport)
                 .FirstOrDefaultAsync(o => o.Id == courierId);
-        
+
         return courier;
     }
 
-    public IEnumerable<Courier> GetAllFree()
+    public async Task<IReadOnlyCollection<Courier>> GetAllFree()
     {
-        var couriers = 
+        var couriers = await
             dbContext.Couriers
-            .Include(x => x.CurrentTransport)
-            .Where(o => o.Status.Name == CourierStatus.Free.Name);
-        
+                .Include(x => x.CurrentTransport)
+                .Where(o => o.Status.Name == CourierStatus.Free.Name)
+                .ToListAsync();
+
         return couriers;
     }
 }
